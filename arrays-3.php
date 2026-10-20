@@ -31,7 +31,7 @@
 			"surname" => "Ylon",
 			"age" => 328,
 		],
-		# oh god there is nothing enforcing the schema
+		# there is nothing enforcing the schema
 		"fuck you" => [
 			"AHAHAHAHA" => NAN,
 			0 => 3,
@@ -58,25 +58,25 @@
 	# 6 chars
 	print(strlen($utf8_str)); # 18, so it's bytes
 
-	# ok... so...
 	echo "\n";
 	for ($i=0; $i<strlen($utf8_str); $i++) {
 		print($utf8_str[$i] . " ");
-	} # � � � � � � � � � � � � � � � � � � lol
+	} # � � � � � � � � � � � � � � � � � � 
 	echo "\n";
 
 	# aha!
 	print(mb_strlen($utf8_str)); # 6
 	print(grapheme_strlen($utf8_str)); # should be more accurate as it also takes into account combination chars
 
-	$string = "Hello, 世界 🌍 👨‍👩‍👧‍👦";
+	# copy pasted code
 
+	$string = "Hello, 世界 🌍 👨‍👩‍👧‍👦";
 	// \X matches a single extended grapheme cluster. 
 	// The 'u' modifier enables UTF-8 support.
 	preg_match_all('/\X/u', $string, $matches);
 
 	foreach ($matches[0] as $grapheme) { # matches[0]?
-	    echo $grapheme . PHP_EOL; # huh, interesting, i guess i'll change my \n(s) to PHP_EOL since this one is cross-platform
+	    echo $grapheme . PHP_EOL;
 	}
 
 	# var_dump($matches); # huh?? why is it a len 1 array of an array? oh well, just [0] ig

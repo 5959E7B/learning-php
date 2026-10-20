@@ -5,7 +5,7 @@
  	echo count($array), "\n";
 
  	unset($array[2]);
- 	# oh god now the array indexes are 0,1,3,4,5
+ 	# indexes are now 0, 1,    3, 4, 5
  	echo "\$array[2] removed\n";
 
  	echo count($array), "\n";

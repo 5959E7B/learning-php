@@ -1,6 +1,3 @@
-except, tricked ya! php arrays are actually just key-pair maps
-which means cursed things:
-
 <?php
 	$map = []; # same as doing array()
 
