@@ -15,7 +15,7 @@
 	echo "$x_1 - $x_2: ", $x_1 - $x_2, "\n";
 	echo "$x_1 * $x_2: ", $x_1 * $x_2, "\n";
 	echo "$x_1 / $x_2: ", $x_1 / $x_2, "\n";
-	# echo "$x_1", $x_1 / 0; you cannot divide by , 0
+	# echo "$x_1", $x_1 / 0; you cannot divide by 0
 	echo "$x_1 ** $x_2: ", $x_1 ** $x_2, "\n";
 	echo "$x_1 % $x_2: ", $x_1 % $x_2, "\n";
 	echo "foo", "bar", "\n";
