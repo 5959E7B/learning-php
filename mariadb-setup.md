@@ -12,13 +12,12 @@ sudo apt install php-mysqli
 ```
 For Arch-based distros
 > https://wiki.archlinux.org/title/PHP#MySQL/MariaDB
+>
 > Uncomment the following lines in /etc/php/php.ini:
-> ──┬──────────────────────
->   │ /etc/php/php.ini
-> ──┼──────────────────────
->   │ extension=pdo_mysql
->   │ extension=mysqli
-> ──┴──────────────────────
+>
+> `extension=pdo_mysql`
+> 
+> `extension=mysqli`
 
 ## 2. Install DB
 
@@ -134,27 +133,21 @@ INSERT INTO `table_name`
 ('Mary',     NOW(),  'hello');
 
 SELECT * FROM `table_name`;
-+----+----------+---------------------+---------+
-| id | username | time                | comment |
-+----+----------+---------------------+---------+
-|  1 | John     | 2026-10-23 12:00:00 | comment |
-|  2 | Mary     | 2026-10-23 10:00:00 | hello   |
-+----+----------+---------------------+---------+
+# +----+----------+---------------------+---------+
+# | id | username | time                | comment |
+# +----+----------+---------------------+---------+
+# |  1 | John     | 2026-10-23 12:00:00 | comment |
+# |  2 | Mary     | 2026-10-23 10:00:00 | hello   |
+# +----+----------+---------------------+---------+
 
-SELECT * FROM `table_name` ORDER BY `time` DESC;
-+----+----------+---------------------+---------+
-| id | username | time                | comment |
-+----+----------+---------------------+---------+
-|  1 | John     | 2026-10-23 12:00:00 | comment |
-|  2 | Mary     | 2026-10-23 10:00:00 | hello   |
-+----+----------+---------------------+---------+
+SELECT * FROM `table_name` ORDER BY `time` ASC;
 
 RENAME TABLE `table_name` TO `more_descriptive_name`;
 
 CREATE TABLE `users` (
     `id` INT AUTO_INCREMENT NOT NULL,
     `username` VARCHAR(128) UNIQUE NOT NULL,
-    `password_hash` BINARY(32) NOT NULL, # sha256
+    `password_hash` BINARY(32) NOT NULL, # sha256, used as an example but you really should be using something like https://www.php.net/manual/en/function.password-hash.php instead
     # X'0123456789ABCDEF' or UNHEX('FEDCBA9876543210') to INSERT
     `creation_time` DATETIME NOT NULL,
     `last_login_time` DATETIME,
@@ -184,12 +177,12 @@ WHERE CONSTRAINT_SCHEMA = DATABASE()
 ORDER BY TABLE_NAME, CONSTRAINT_TYPE;
 
 SHOW TABLES;
-+-------------------+
-| Tables_in_testing |
-+-------------------+
-| comments          |
-| users             |
-+-------------------+
+# +-------------------+
+# | Tables_in_testing |
+# +-------------------+
+# | comments          |
+# | users             |
+# +-------------------+
 
 INSERT INTO `users`
 (`username`, `password_hash`, `creation_time`) VALUES
@@ -198,13 +191,13 @@ INSERT INTO `users`
 # repeat for 'Alice' and 'Bob'
 
 SELECT id, username, creation_time FROM users;
-+----+----------+---------------------+
-| id | username | creation_time       |
-+----+----------+---------------------+
-|  1 | John     | 2026-10-23 10:57:00 |
-|  2 | Alice    | 2026-10-23 10:58:00 |
-|  3 | Bob      | 2026-10-23 10:59:00 |
-+----+----------+---------------------+
+# +----+----------+---------------------+
+# | id | username | creation_time       |
+# +----+----------+---------------------+
+# |  1 | John     | 2026-10-23 10:57:00 |
+# |  2 | Alice    | 2026-10-23 10:58:00 |
+# |  3 | Bob      | 2026-10-23 10:59:00 |
+# +----+----------+---------------------+
 
 INSERT INTO `comments`
 (`user_id`, `time`, `comment`) VALUES
@@ -222,24 +215,25 @@ INSERT INTO `comments`
 # DELETE FROM `comments` WHERE `user_id` = 2 AND `comment` = 'I\'m Bob' LIMIT 1;
 
 SELECT * FROM comments;
-+----+---------+---------------------+--------------+
-| id | user_id | time                | comment      |
-+----+---------+---------------------+--------------+
-|  1 |       1 | 2026-10-23 11:07:08 | Hello World! |
-|  2 |       2 | 2026-10-23 11:07:26 | I'm Alice    |
-|  4 |       3 | 2026-10-23 11:10:33 | I'm Bob      |
-+----+---------+---------------------+--------------+
+# +----+---------+---------------------+--------------+
+# | id | user_id | time                | comment      |
+# +----+---------+---------------------+--------------+
+# |  1 |       1 | 2026-10-23 11:00:10 | Hello World! |
+# |  2 |       2 | 2026-10-23 11:00:20 | I'm Alice    |
+# |  4 |       3 | 2026-10-23 11:00:30 | I'm Bob      |
+# +----+---------+---------------------+--------------+
 
 SELECT username, comment FROM comments JOIN users ON (comments.user_id = users.id) ORDER BY comments.id ASC;
-+----------+--------------+
-| username | comment      |
-+----------+--------------+
-| John     | Hello World! |
-| Alice    | I'm Alice    |
-| Bob      | I'm Bob      |
-+----------+--------------+
+# +----------+--------------+
+# | username | comment      |
+# +----------+--------------+
+# | John     | Hello World! |
+# | Alice    | I'm Alice    |
+# | Bob      | I'm Bob      |
+# +----------+--------------+
 ```
 
-## PHP & MariaDB
+## Useful resources
 
 https://mariadb.com/resources/blog/developer-quickstart-php-mysqli-and-mariadb/
+https://github.com/mariadb-developers/php-quickstart
